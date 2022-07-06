@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Base Numérica</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        form{
+            text-align: center;
+            font-size: 20px; 
+            border: 2px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conversor de Base Númerica</h1>
+    <form>
+        <label for="selectDe">Base</label>
+        <select name="de" id="de">
+            <option value="decimal">Decimal</option>
+            <option value="binario">Binario</option>
+            <option value="hexadecimal">Hexadecimal</option>
+        </select>
+        <input type="text" id="numero">
+        <label for="inputPara">Para</label>
+        <select name="para" id="para">
+            <option value="decimal">Decimal</option>
+            <option value="binario">Binario</option>
+            <option value="hexadecimal">Hexadecimal</option>
+        </select>
+        <button onClick="converter()">Converter</button>
+    </form>
+    <script>
+        function converter(){
+            de = document.querySelector("#de").value
+            numero = document.querySelector("#numero").value
+            para = document.querySelector("#para").value
+
+            if(de == "decimal" && para == "hexadecimal"){
+                if(numero === String){
+                    alert("berere")
+                }
+                //alert(converterDecHex(numero))
+            }else if(de == "hexadecimal" && para == "decimal"){
+                alert(converterHexDec(numero))
+            }else if(de == 'decimal' && para == "binario"){
+                alert(converterDecBin(numero))
+            }else if(de == "binario" && para == "decimal"){
+                alert(converterBinDec(numero))
+            }
+        }
+        function converterDecHex(dec){
+            var hexadecimal = []
+            while(dec/16 > 1){
+                hexadecimal.unshift(parseInt(dec%16))
+                dec = dec / 16
+            }
+            hexadecimal.unshift(parseInt(dec))
+            for(let i = 0; i < hexadecimal.length; i++){
+                switch(hexadecimal[i]){
+                    case 10: hexadecimal[i] = "A"
+                    break
+                    case 11: hexadecimal[i] = "B"
+                    break
+                    case 12: hexadecimal[i] = "C"
+                    break
+                    case 13: hexadecimal[i] = "D"
+                    break
+                    case 14: hexadecimal[i] = "E"
+                    break
+                    case 15: hexadecimal[i] = "F"
+                    break
+                }
+            }
+            return hexadecimal.join('')
+        }
+        function converterHexDec(hex){
+            let decimal = 0
+            hex = hex.split('')
+            for(let i = 0; i < hex.length; i++){
+                switch(hex[i]){
+                    case "A": hex[i] = 10
+                    break
+                    case "B": hex[i] = 11
+                    break
+                    case "C": hex[i] = 12
+                    break
+                    case "D": hex[i] = 13
+                    break
+                    case "E": hex[i] = 14
+                    break
+                    case "F": hex[i] = 15
+                    break
+                }
+            }
+            let x = hex.length-1
+            for(let i = 0; i < hex.length; i++){
+                decimal += hex[i]*Math.pow(16, x)
+                x = x - 1
+            }
+            return decimal
+        }
+        function converterDecBin(dec){
+            let  binario = []
+            while(dec/2 > 1){
+                binario.unshift(parseInt(dec%2))
+                dec = dec/2
+            }
+            binario.unshift(parseInt(dec))
+            return binario.join('')
+        }
+        function converterBinDec(bin){
+            let decimal = 0
+            bin = String(bin).split('')
+            x = bin.length-1
+            for(let i = 0; i < bin.length; i++){
+                decimal += Math.pow(2, x)*parseInt(bin[i])
+                x -= 1
+            }
+            return decimal
+        }
+    </script>
+</body>
+</html>
